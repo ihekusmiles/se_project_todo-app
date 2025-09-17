@@ -70,7 +70,11 @@ class Todo {
   }
 }
 
-function generateTodo(data, selector) {}
+function generateTodo(data, selector) {
+  const todoInstance = new Todo(data, selector);
+  const todoElement = todoInstance.getView();
+  return todoElement;
+}
 
 addTodoButton.addEventListener("click", () => {
   openModal(addTodoPopup);
@@ -90,12 +94,12 @@ addTodoForm.addEventListener("submit", (evt) => {
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
   const values = { name, date };
-  const todo = generateTodo(values);
+  const todo = generateTodo(values, ".todo");
   todosList.append(todo);
   closeModal(addTodoPopup);
 });
 
 initialTodos.forEach((item) => {
-  const todo = generateTodo(item);
+  const todo = generateTodo(item, ".todo");
   todosList.append(todo);
 });
