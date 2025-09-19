@@ -45,6 +45,8 @@ addTodoForm.addEventListener("submit", (evt) => {
   const values = { name, date, id };
   const todo = generateTodo(values, ".todo");
   todosList.append(todo);
+  // Call resetValidation method to reset form and disable button
+  newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
 
@@ -54,6 +56,7 @@ initialTodos.forEach((item) => {
 });
 
 // Creating an instance of the FormValidator class and calling its
-// enableValidation() method
+// enableValidation() method. It is here where the settings object and
+// the formElement (addTodoForm) is passed.
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm);
 newTodoValidator.enableValidation();

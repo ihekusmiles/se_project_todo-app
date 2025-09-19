@@ -7,12 +7,26 @@ class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._formElement = formElement;
   }
-  // this._formElement gets ahold of the ".popup__form" class
+
   enableValidation() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
     this._setEventListeners(this._formElement);
+  }
+  // This function resets each input field, hides errors, and toggles button
+  resetValidation() {
+    this._formElement.reset();
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
+    const buttonElement = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
+    inputList.forEach((input) => {
+      this._hideInputError(this._formElement, input);
+    });
+    this._toggleButtonState(inputList, buttonElement);
   }
 
   _showInputError = (formElement, inputElement, errorMessage) => {
