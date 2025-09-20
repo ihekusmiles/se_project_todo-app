@@ -42,17 +42,17 @@ addTodoForm.addEventListener("submit", (evt) => {
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
   // Create unique ID's with uuiv4
   const id = uuidv4();
-  const values = { name, date, id };
-  const todo = generateTodo(values, ".todo");
-  todosList.append(todo);
+  const values = { name, date, id, completed: false };
+  const todoElement = generateTodo(values, ".todo");
+  todosList.append(todoElement);
   // Call resetValidation method to reset form and disable button
   newTodoValidator.resetValidation();
   closeModal(addTodoPopup);
 });
 
 initialTodos.forEach((item) => {
-  const todo = generateTodo(item, ".todo");
-  todosList.append(todo);
+  const todoElement = generateTodo(item, ".todo");
+  todosList.append(todoElement);
 });
 
 // Creating an instance of the FormValidator class and calling its
