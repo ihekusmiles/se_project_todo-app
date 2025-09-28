@@ -3,13 +3,24 @@ import { initialTodos, validationConfig } from "../utils/constants.js";
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 // Form elements
 const addTodoButton = document.querySelector(".button_action_add");
-const addTodoPopup = document.querySelector("#add-todo-popup");
-const addTodoForm = addTodoPopup.querySelector(".popup__form");
-const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
-const todosList = document.querySelector(".todos__list");
+const addTodoPopupEl = document.querySelector("#add-todo-popup");
+const addTodoForm = addTodoPopupEl.querySelector(".popup__form");
+const addTodoCloseBtn = addTodoPopupEl.querySelector(".popup__close");
+// const todosList = document.querySelector(".todos__list");
+
+// Creating new instance of child class PopupWithForm
+const addTodoPopup = new PopupWithForm({
+  popupSelector: "#add-todo-popup",
+  handleFormSubmit: () => {
+    // code here
+  },
+});
+// Calling setEventListener method
+addTodoPopup.setEventListeners();
 
 // Instantiating a Section class.
 // In renderer: generate todo item, add it to the todo list.
@@ -22,16 +33,16 @@ const section = new Section({
   containerSelector: ".todos__list",
 });
 
-// Calling section instance's renderItems method.
+// Calling  section instance's renderItems method.
 section.renderItems();
 
-const openModal = (modal) => {
-  modal.classList.add("popup_visible");
-};
+// const openModal = (modal) => {
+//   modal.classList.add("popup_visible");
+// };
 
-const closeModal = (modal) => {
-  modal.classList.remove("popup_visible");
-};
+// const closeModal = (modal) => {
+//   modal.classList.remove("popup_visible");
+// };
 
 function generateTodo(data, selector) {
   const todoInstance = new Todo(data, selector);
@@ -40,12 +51,12 @@ function generateTodo(data, selector) {
 }
 
 addTodoButton.addEventListener("click", () => {
-  openModal(addTodoPopup);
+  addTodoPopup.open();
 });
 
-addTodoCloseBtn.addEventListener("click", () => {
-  closeModal(addTodoPopup);
-});
+// addTodoCloseBtn.addEventListener("click", () => {
+//   addTodoPopup.close();
+// });
 
 addTodoForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
@@ -62,7 +73,8 @@ addTodoForm.addEventListener("submit", (evt) => {
   section.addItem(todoElement);
   // Call resetValidation method to reset form and disable button
   newTodoValidator.resetValidation();
-  closeModal(addTodoPopup);
+  addTodoPopup.close();
+  // closeModal(addTodoPopupEl); DELETE
 });
 
 // Creating an instance of the FormValidator class and calling its
