@@ -1,12 +1,14 @@
 const todoTemplate = document.querySelector("#todo-template");
 
 class Todo {
-  constructor(data, selector) {
+  constructor(data, selector, handleCheck, handleDelete) {
     this._selector = selector;
     this._id = data.id;
     this._name = data.name;
     this._completed = data.completed;
     this._date = data.date;
+    this._handleCheck = handleCheck;
+    this._handleDelete = handleDelete;
   }
   _getTemplate() {
     const todoElement = todoTemplate.content
@@ -18,7 +20,12 @@ class Todo {
 
   _setEventListeners() {
     this._todoDeleteBtn.addEventListener("click", () => {
+      this._handleDelete(this._completed);
       this._todoElement.remove();
+    });
+
+    this._todoCompleted.addEventListener("change", () => {
+      this._handleCheck(this._todoCompleted.checked);
     });
   }
 

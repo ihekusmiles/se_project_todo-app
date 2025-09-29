@@ -14,6 +14,21 @@ const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopupEl = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopupEl.querySelector(".popup__form");
 
+// Handle check function
+function handleCheck(completed) {
+  console.log("Checkbox clicked!");
+  todoCounter.updateCompleted(completed);
+}
+
+function handleDelete(completed) {
+  if (completed) {
+    todoCounter.updateTotal(false);
+    todoCounter.updateCompleted(false);
+  } else {
+    todoCounter.updateTotal(false);
+  }
+}
+
 // Creating new instance of child class PopupWithForm
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
@@ -28,6 +43,7 @@ const addTodoPopup = new PopupWithForm({
     const values = { name, date, id, completed: false };
     const todoElement = generateTodo(values, ".todo");
     section.addItem(todoElement);
+    todoCounter.updateTotal(true);
     // Call resetValidation method to reset form and disable button
     newTodoValidator.resetValidation();
     addTodoPopup.close();
@@ -51,7 +67,7 @@ const section = new Section({
 section.renderItems();
 
 function generateTodo(data, selector) {
-  const todoInstance = new Todo(data, selector);
+  const todoInstance = new Todo(data, selector, handleCheck, handleDelete);
   const todoElement = todoInstance.getView();
   return todoElement;
 }
