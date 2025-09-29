@@ -2,8 +2,8 @@ class Popup {
   constructor({ popupSelector }) {
     this._element = document.querySelector(popupSelector);
     this._popupCloseBtn = this._element.querySelector(".popup__close");
-    // console.log(this._element);
   }
+
   open() {
     this._element.classList.add("popup_visible");
     this._handleKeydown = (evt) => {
@@ -11,6 +11,7 @@ class Popup {
     };
     document.addEventListener("keydown", this._handleKeydown);
   }
+
   close() {
     this._element.classList.remove("popup_visible");
     document.removeEventListener("keydown", this._handleKeydown);
@@ -19,9 +20,9 @@ class Popup {
   _handleEscapeClose(evt) {
     if (evt.key === "Escape") {
       this.close();
-      console.log("Escape is pressed"); // for debuggin purposes
     }
   }
+
   setEventListeners() {
     this._popupCloseBtn.addEventListener("click", () => {
       this.close(); // To call a method on the current instance use this.methodName()
@@ -34,7 +35,9 @@ class Popup {
     });
   }
 }
+
+export default Popup;
+
 //Note: evt.currentTarget is what the element that has the event listener attached to it
 // and evt.target is the speific element that is actually clicked
 // So on line 31: overlay click detection should check evt.target against the popup element itself
-export default Popup;
