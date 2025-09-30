@@ -20,7 +20,7 @@ class Todo {
 
   _setEventListeners() {
     this._todoDeleteBtn.addEventListener("click", () => {
-      this._handleDelete(this._completed);
+      this._handleDelete(this._todoCompleted.checked);
       this._todoElement.remove();
     });
 
@@ -31,7 +31,6 @@ class Todo {
 
   getView() {
     this._todoElement = this._getTemplate();
-    // Cached variables
     this._todoDeleteBtn = this._todoElement.querySelector(".todo__delete-btn");
     this._todoName = this._todoElement.querySelector(".todo__name");
     this._todoDate = this._todoElement.querySelector(".todo__date");
@@ -40,13 +39,10 @@ class Todo {
     this._todoName.textContent = this._name;
 
     this._todoCompleted.checked = this._completed;
-    // Apply id and for attributes. The id will initially be undefined for new todos.
     this._todoCompleted.id = `todo-${this._id}`;
     this._todoLabel.setAttribute("for", `todo-${this._id}`);
 
     this._setEventListeners();
-    // If a due date has been set, parsing this it with `new Date` will return a
-    // number. If so, we display a string version of the due date in the todo.
     const dueDate = new Date(this._date);
     if (!isNaN(dueDate)) {
       this._todoDate.textContent = `Due: ${dueDate.toLocaleString("en-US", {

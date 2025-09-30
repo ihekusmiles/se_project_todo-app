@@ -6,7 +6,6 @@ class FormValidator {
     this._inputErrorClass = settings.inputErrorClass;
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._formElement = formElement;
-    // Cached elements
     this._inputList = Array.from(
       this._formElement.querySelectorAll(this._inputSelector)
     );
@@ -21,7 +20,6 @@ class FormValidator {
     });
     this._setEventListeners(this._formElement);
   }
-  // This function resets each input field, hides errors, and toggles button
   resetValidation() {
     this._formElement.reset();
     this._inputList.forEach((input) => {

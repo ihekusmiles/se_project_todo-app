@@ -16,17 +16,14 @@ const addTodoForm = addTodoPopupEl.querySelector(".popup__form");
 
 // Handle check function
 function handleCheck(completed) {
-  console.log("Checkbox clicked!");
   todoCounter.updateCompleted(completed);
 }
 
 function handleDelete(completed) {
   if (completed) {
-    todoCounter.updateTotal(false);
-    todoCounter.updateCompleted(false);
-  } else {
-    todoCounter.updateTotal(false);
+    todoCounter.updateCompleted(false); // Decreased the completed count (only when deleting completed items)
   }
+  todoCounter.updateTotal(false); // Decreased the total count (needed for ALL deletions)
 }
 
 // Creating new instance of child class PopupWithForm

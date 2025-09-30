@@ -33,7 +33,7 @@ Users can delete tasks as needed:
 
 ## Plan on improving project
 
-- Showing how many tasks have been completed out of the total number of tasks is something that I will work on in the future. Also, when users do not enter a due date and submit the form successfully "Invalid Date" shows in the to-do list.
+- Adding some CSS style to make it more interesting!
 
 ## Deployment
 
